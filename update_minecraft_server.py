@@ -7,7 +7,7 @@ import logging
 import sys 
 import os 
  
-version_manifest_url = 'https://launchermeta.mojang.com/mc/game/version_manifest.jso n' 
+version_manifest_url = 'https://launchermeta.mojang.com/mc/game/version_manifest.json' 
 jar_directory = '/home/minecraft/minecraft_server_jars' 
 latest_jar_filename = 'minecraft_server_latest.jar' 
  
