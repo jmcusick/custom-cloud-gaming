@@ -1,0 +1,16 @@
+[Unit]
+Description=Minecraft Server
+[Service]
+Type=simple
+Restart=on-failure
+RestartSec=5
+StartLimitInterval=60s
+StartLimitBurst=3
+User=minecraft
+Group=minecraft
+WorkingDirectory=/home/minecraft/minecraft_server
+ExecStartPre=/home/minecraft/update_minecraft_server.py
+ExecStart=/usr/bin/java -Xms4096M -Xmx4096M -jar /home/minecraft/minecraft_server/server.jar nogui
+ExecStop=/bin/killall java
+[Install]
+WantedBy=multi-user.target
