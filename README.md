@@ -7,6 +7,7 @@ How to run the terraform file:
 From the terraform directory...
 
 ~~~
+terraform init  # first time only
 terraform plan
 terraform apply
 ~~~
