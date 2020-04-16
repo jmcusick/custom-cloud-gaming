@@ -4,7 +4,7 @@
 
 How to run the terraform file:
 
-In the minecraft directory...
+From the terraform directory...
 
 ~~~
 terraform plan
