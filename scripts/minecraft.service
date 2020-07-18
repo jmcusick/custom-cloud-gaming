@@ -2,7 +2,7 @@
 Description=Minecraft Server
 
 [Service]
-Type=simple
+Type=forking
 Restart=on-failure
 RestartSec=5
 StartLimitInterval=60s
@@ -11,7 +11,7 @@ SyslogIdentifier=minecraft
 User=minecraft
 Group=minecraft
 WorkingDirectory=/home/minecraft/minecraft_server
-ExecStart=/home/minecraft/start_minecraft_server.sh
+ExecStart=/usr/bin/tmux new-session -d -s minecraft /home/minecraft/start_minecraft_server.sh
 ExecStop=/home/minecraft/stop_minecraft_server.sh
 
 [Install]
