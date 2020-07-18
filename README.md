@@ -19,3 +19,27 @@ To delete
 ~~~
 terraform destroy
 ~~~
+
+
+###Screen
+
+To connect:
+
+~~~
+sudo su - minecraft
+screen -r minecraft
+~~~
+
+To say things:
+
+~~~
+/say Warning: server shutdown imminent
+~~~
+
+To view logs:
+
+* Note: minecraft.service uses minecraft tag, and screen uses systemd-cat
+
+~~~
+journalctl -t minecraft
+~~~

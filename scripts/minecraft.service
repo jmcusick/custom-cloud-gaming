@@ -7,12 +7,12 @@ Restart=on-failure
 RestartSec=5
 StartLimitInterval=60s
 StartLimitBurst=3
+SyslogIdentifier=minecraft
 User=minecraft
 Group=minecraft
 WorkingDirectory=/home/minecraft/minecraft_server
-ExecStartPre=/home/minecraft/update_minecraft_server.py
-ExecStart=/usr/bin/java "-Xms${RAM}M" "-Xmx${RAM}M" -jar /home/minecraft/minecraft_server/server.jar nogui
-ExecStop=/bin/killall java
+ExecStart=/home/minecraft/start_minecraft_server.sh
+ExecStop=/home/minecraft/stop_minecraft_server.sh
 
 [Install]
 WantedBy=multi-user.target

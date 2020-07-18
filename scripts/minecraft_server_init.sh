@@ -20,10 +20,13 @@ sudo useradd -m minecraft
 # Grab CCG repo
 git clone https://github.com/jmorgancusick/custom-cloud-gaming.git /home/ec2-user/custom-cloud-gaming
 
-# Place update_minecraft_server.py in home directory of minecraft user
+# Place required scripts in home directory of minecraft user
 sudo cp /home/ec2-user/custom-cloud-gaming/scripts/update_minecraft_server.py \
      /home/minecraft/update_minecraft_server.py
-sudo chmod +x /home/minecraft/update_minecraft_server.py
+sudo cp /home/ec2-user/custom-cloud-gaming/scripts/start_minecraft_server.sh \
+     /home/minecraft/start_minecraft_server.sh
+sudo cp /home/ec2-user/custom-cloud-gaming/scripts/stop_minecraft_server.sh \
+     /home/minecraft/stop_minecraft_server.sh
 
 # Make minecraft_server directory for minecraft user
 sudo mkdir /home/minecraft/minecraft_server
@@ -46,9 +49,6 @@ sudo chown -R minecraft:minecraft /home/minecraft
 # Move systemctl file
 sudo cp /home/ec2-user/custom-cloud-gaming/scripts/minecraft.service \
     /lib/systemd/system/minecraft.service
-
-# Export RAM variable to systemctl environment
-sudo systemctl set-environment RAM=$(free -m | awk '/Mem:/ { print $2 } /buffers\/cache/ { print $3 }')
 
 # Start the server
 sudo systemctl daemon-reload
