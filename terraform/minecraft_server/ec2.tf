@@ -47,7 +47,8 @@ resource "aws_instance" "minecraft" {
   ]
   key_name = var.key_pair
   user_data = file("../../scripts/minecraft_server_init.sh")
-
+  iam_instance_profile = aws_iam_instance_profile.ccg_minecraft_implicit_instance_profile.name
+  
   tags = {
     Name = "minecraft"
   }
