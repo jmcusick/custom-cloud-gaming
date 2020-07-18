@@ -47,6 +47,9 @@ sudo chown -R minecraft:minecraft /home/minecraft
 sudo cp /home/ec2-user/custom-cloud-gaming/scripts/minecraft.service \
     /lib/systemd/system/minecraft.service
 
+# Export RAM variable to systemctl environment
+sudo systemctl set-environment RAM=$(free -m | awk '/Mem:/ { print $2 } /buffers\/cache/ { print $3 }')
+
 # Start the server
 sudo systemctl daemon-reload
 sudo systemctl enable minecraft
