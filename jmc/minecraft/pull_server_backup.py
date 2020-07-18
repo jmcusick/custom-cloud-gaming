@@ -29,7 +29,7 @@ def setup_log():
 def tar_extract_world(input_file, exclude_list, server_folder):
     cmd_start = ['tar', '-zxvf', input_file]
     cmd_exclude = ['--exclude="{}"'.format(item) for item in exclude_list]
-    cmd_end = [server_folder]
+    cmd_end = ['-C', server_folder]
 
     cmd = cmd_start + cmd_exclude + cmd_end
     logging.debug('Executing cmd: {}'.format(' '.join(cmd)))
