@@ -69,7 +69,7 @@ data "template_file" "minecraft_server_init_script" {
 
   vars = {
     role_arn = aws_iam_role.ccg_minecraft_assumed_role.arn
-    s3_bucket = var.s3_server_bucket
+    s3_bucket = var.world_bucket
     s3_object = var.s3_server_object
   }
 }
