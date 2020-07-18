@@ -65,7 +65,7 @@ sudo runuser -l minecraft -c "export PYTHONPATH=/home/minecraft && /home/minecra
 # Set up job for uploading world backup
 sudo sh -c "crontab -u minecraft -l > /home/minecraft/tmp_cron"
 
-sudo sh -c "echo '0 17 * * * export PYTHONPATH=/home/minecraft && /home/minecraft/jmc/minecraft/push_server_backup.py --role-arn ${role_arn} --server-folder /home/minecraft/minecraft_server --s3-bucket ${s3_bucket} --s3-object ${s3_object} 2>&1 | systemd-cat -t minecraft' >> /home/minecraft/tmp_cron"
+sudo sh -c "echo '0 21 * * * export PYTHONPATH=/home/minecraft && /home/minecraft/jmc/minecraft/push_server_backup.py --role-arn ${role_arn} --server-folder /home/minecraft/minecraft_server --s3-bucket ${s3_bucket} --s3-object ${s3_object} 2>&1 | systemd-cat -t minecraft' >> /home/minecraft/tmp_cron"
 
 sudo crontab -u minecraft /home/minecraft/tmp_cron
 
