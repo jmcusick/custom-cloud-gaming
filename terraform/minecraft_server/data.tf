@@ -63,3 +63,11 @@ data "aws_iam_policy_document" "ccg_minecraft_assumed_policy" {
     }
   }
 }
+
+data "template_file" "minecraft_server_init_script" {
+  template = file("${path.module}/resources/minecraft_server_init.tpl")
+
+  # vars = {
+  #   bucket = var.world_bucket
+  # }
+}
