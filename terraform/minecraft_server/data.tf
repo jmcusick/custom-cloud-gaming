@@ -67,7 +67,9 @@ data "aws_iam_policy_document" "ccg_minecraft_assumed_policy" {
 data "template_file" "minecraft_server_init_script" {
   template = file("${path.module}/resources/minecraft_server_init.tpl")
 
-  # vars = {
-  #   bucket = var.world_bucket
-  # }
+  vars = {
+    role_arn = aws_iam_role.ccg_minecraft_assumed_role.arn
+    s3_bucket = var.s3_server_bucket
+    s3_object = var.s3_server_object
+  }
 }

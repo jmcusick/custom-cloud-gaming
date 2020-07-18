@@ -44,6 +44,9 @@ sudo mkdir /home/minecraft/minecraft_server_jars
 # Make backups directory for minecraft user
 sudo mkdir /home/minecraft/backups
 
+# Make downloads directory for minecraft user
+sudo mkdir /home/minecraft/downloads
+
 # Pull the latest jar
 sudo /home/minecraft/update_minecraft_server.py
 
@@ -55,6 +58,9 @@ echo 'eula=true' | sudo tee /home/minecraft/minecraft_server/eula.txt >/dev/null
 
 # Change owner of all files
 sudo chown -R minecraft:minecraft /home/minecraft
+
+# Pull world backup
+sudo runuser -l minecraft -c "export PYTHONPATH=/home/minecraft && /home/minecraft/jmc/minecraft/pull_server_backup.py --role-arn ${role_arn} --server-folder /home/minecraft/minecraft_server --s3-bucket ${s3_bucket} --s3-object ${s3_object}"
 
 # Move systemctl file
 sudo cp /home/ec2-user/custom-cloud-gaming/scripts/minecraft.service \
