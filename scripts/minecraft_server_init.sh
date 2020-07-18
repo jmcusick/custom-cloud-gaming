@@ -14,6 +14,9 @@ sudo yum install python3 -y
 # Install java 11
 sudo yum install java-1.8.0-openjdk -y
 
+# Install tmux
+sudo yum install tmux -y
+
 # Create minecraft user with home directory (group defaults to username)
 sudo useradd -m minecraft
 
