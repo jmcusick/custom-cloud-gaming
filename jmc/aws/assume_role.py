@@ -1,22 +1,7 @@
-#!/usr/bin/python3
-
-import argparse
 import json
 import logging
-import sys
 import os
 import subprocess
-
-def parse_args():
-    parser = argparse.ArgumentParser(description='Assume an AWS role')
-
-    parser.add_argument('--role-arn', dest='role_arn', type=str, required=True, help='AWS role arn')
-    parser.add_argument('--role-session-name', dest='role_session_name', type=str, default='session', help='session name')
-
-    return parser.parse_args()
-
-def setup_log():
-    logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
 def clear_env_vars():
     try:
@@ -57,13 +42,3 @@ def assume_role(role_arn, role_session_name):
     os.environ['AWS_SESSION_TOKEN'] = resp['Credentials']['SessionToken']
 
     logging.debug('Successfully assumed role')
-
-def main():
-    args = parse_args()
-    setup_log()
-
-    clear_env_vars()
-    assume_role(args.role_arn, args.role_session_name)
-
-if __name__ == '__main__':
-    main()

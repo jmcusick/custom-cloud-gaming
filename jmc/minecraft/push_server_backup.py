@@ -1,11 +1,11 @@
 #!/usr/bin/python3
 
 import argparse
-import json
 import logging
 import sys
-import os
 import subprocess
+
+from jmc.aws.assume_role import clear_env_vars, assume_role
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Assume an AWS role')
@@ -18,24 +18,8 @@ def parse_args():
 def setup_log():
     logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
-def clear_env_vars():
-    try:
-        del os.environ['AWS_ACCESS_KEY_ID']
-    except KeyError:
-        pass
-
-    try:
-        del os.environ['AWS_SECRET_ACCESS_KEY']
-    except KeyError:
-        pass
-
-    try:
-        del os.environ['AWS_SESSION_TOKEN']
-    except KeyError:
-        pass
-
-def assume_role(role_arn, role_session_name):
-    cmd = ['aws', 'sts', 'assume-role', '--role-arn', role_arn, '--role-session-name', role_session_name]
+def s3_push():
+    cmd = ['echo', '$AWS_ACCESS_KEY_ID']
     logging.debug('Executing cmd: {}'.format(' '.join(cmd)))
     process = subprocess.Popen(
         cmd,
@@ -48,15 +32,9 @@ def assume_role(role_arn, role_session_name):
 
     if rc != 0:
         logging.error(stderr)
-        raise RuntimeError('aws cli assume role returned nonzero exit code')
+        raise RuntimeError('aws cli s3 upload returned nonzero exit code')
 
-    resp = json.loads(stdout)
-
-    os.environ['AWS_ACCESS_KEY_ID'] = resp['Credentials']['AccessKeyId']
-    os.environ['AWS_SECRET_ACCESS_KEY'] = resp['Credentials']['SecretAccessKey']
-    os.environ['AWS_SESSION_TOKEN'] = resp['Credentials']['SessionToken']
-
-    logging.debug('Successfully assumed role')
+    logging.debug(stdout)
 
 def main():
     args = parse_args()
@@ -64,6 +42,10 @@ def main():
 
     clear_env_vars()
     assume_role(args.role_arn, args.role_session_name)
+
+    s3_push
+
+
 
 if __name__ == '__main__':
     main()
