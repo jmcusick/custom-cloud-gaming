@@ -21,3 +21,9 @@ variable "subdomain_dns_name" {
   type = string
   default = "minecraft_test"
 }
+
+variable "world_bucket" {
+  description = "The S3 bucket storing world files"
+  type = string
+  default = "ccg-minecraft-worlds"
+}
