@@ -27,13 +27,20 @@ To connect:
 
 ~~~
 sudo su - minecraft
-screen -r minecraft
+tmux list-sessions
+tmux attach-session -t minecraft
 ~~~
 
 To say things:
 
 ~~~
 /say Warning: server shutdown imminent
+~~~
+
+To detach:
+
+~~~
+Ctrl-B D
 ~~~
 
 To view logs:
@@ -43,3 +50,16 @@ To view logs:
 ~~~
 journalctl -t minecraft
 ~~~
+
+
+tee explained:
+
+~~~
+<cmd> 2>&1 | tee /dev/tty | systemd-cat -t minecraft
+~~~
+
+* ```2>&1``` redirects stderr to stdout
+
+* ```tee /dev/tty``` copies stdout to tty (tmux detached window)
+
+* ```systemd-cat -t minecraft``` cats stdin to journalctl, tagging with "minecraft"
