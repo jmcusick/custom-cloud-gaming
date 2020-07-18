@@ -70,6 +70,12 @@ def main():
     args = parse_args()
     setup_log()
 
+    logging.debug('Backing up {} to bucket {} object {}...'.format(
+        args.server_folder,
+        args.s3_bucket,
+        args.s3_object
+    ))
+
     clear_env_vars()
     assume_role(args.role_arn, args.role_session_name)
 
@@ -80,6 +86,8 @@ def main():
     tar_compress_world(args.server_folder, args.exclude_list, server_tar_file)
 
     s3_push(server_tar_file, args.s3_bucket, args.s3_object)
+
+    logging.debug('Backup complete.')
 
 if __name__ == '__main__':
     main()
