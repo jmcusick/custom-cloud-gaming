@@ -48,7 +48,6 @@ To view logs:
 * Note: minecraft.service uses minecraft tag, and screen uses systemd-cat
 
 ~~~
-journalctl -u minecraft
 journalctl -t minecraft
 systemctl status minecraft
 ~~~
@@ -76,4 +75,10 @@ export AWS_SECRET_ACCESS_KEY=...
 export AWS_ACCESS_KEY_ID=...
 export AWS_SESSION_TOKEN=...
 aws s3 ls s3://ccg-minecraft-worlds
+~~~
+
+to check cron (logs will be sent to journalctl):
+
+~~~
+crontab -l
 ~~~
