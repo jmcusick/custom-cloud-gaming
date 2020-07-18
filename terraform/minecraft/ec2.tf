@@ -1,17 +1,3 @@
-provider "aws" {
-  region  = "us-west-2"
-}
-
-data "aws_ami" "amazon-linux-2" {
-  most_recent = true
-  owners = ["amazon"]
-
-  filter {
-    name   = "name"
-    values = ["amzn2-ami-hvm*"]
-  }
-}
-
 resource "aws_security_group" "allow_ssh" {
   name        = "allow_ssh"
   description = "Allow SSH inbound traffic"
@@ -52,21 +38,18 @@ resource "aws_security_group" "allow_minecraft" {
   }
 }
 
-resource "aws_instance" "web" {
+resource "aws_instance" "minecraft" {
   ami           = data.aws_ami.amazon-linux-2.id
-  instance_type = "t2.medium"
+  instance_type = var.instance_type
   security_groups = [
-    "${aws_security_group.allow_ssh.name}", 
-    "${aws_security_group.allow_minecraft.name}"
+    aws_security_group.allow_ssh.name, 
+    aws_security_group.allow_minecraft.name
   ]
-  key_name = "us_northwest_keypair"
-  user_data = file("./minecraft_server_init.sh")
+  key_name = var.key_pair
+  user_data = file("../../scripts/minecraft_server_init.sh")
 
   tags = {
-    Name = "HelloWorld"
+    Name = "minecraft"
   }
 }
 
-output "IP" {
-    value = "${aws_instance.web.public_ip}"
-}
