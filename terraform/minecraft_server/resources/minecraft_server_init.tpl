@@ -60,7 +60,7 @@ echo 'eula=true' | sudo tee /home/minecraft/minecraft_server/eula.txt >/dev/null
 sudo chown -R minecraft:minecraft /home/minecraft
 
 # Pull world backup
-sudo runuser -l minecraft -c "export PYTHONPATH=/home/minecraft && /home/minecraft/jmc/minecraft/pull_server_backup.py --role-arn ${role_arn} --server-folder /home/minecraft/minecraft_server --s3-bucket ${s3_bucket} --s3-object ${s3_object}"
+sudo runuser -l minecraft -c "export PYTHONPATH=/home/minecraft && /home/minecraft/jmc/minecraft/pull_server_backup.py --role-arn ${role_arn} --server-folder /home/minecraft/minecraft_server --s3-bucket ${s3_bucket} --s3-object ${s3_object} | systemd-cat -t minecraft"
 
 # Set up job for uploading world backup
 sudo sh -c "crontab -u minecraft -l > /home/minecraft/tmp_cron"

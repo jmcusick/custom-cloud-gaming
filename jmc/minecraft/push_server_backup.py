@@ -16,7 +16,7 @@ def parse_args():
     parser.add_argument('--role-arn', dest='role_arn', type=str, required=True, help='AWS role arn')
     parser.add_argument('--role-session-name', dest='role_session_name', type=str, default='session', help='AWS session name')
     parser.add_argument('--server-folder', dest='server_folder', type=str, required=True, help='Minecraft server folder')
-    parser.add_argument('--exclude-list', dest='exclude_list', type=str, action='append', default=['logs','server.jar','eula.txt', '*.log', 'crash_reports'], help='Items to exclude from server backup')
+    parser.add_argument('--exclude-list', dest='exclude_list', type=str, action='append', default=['logs','server.jar','eula.txt', '*.log', 'crash-reports'], help='Items to exclude from server backup')
     parser.add_argument('--s3-bucket', dest='s3_bucket', type=str, required=True, help='AWS S3 bucket for server backup')
     parser.add_argument('--s3-object', dest='s3_object', type=str, required=True, help='Name of server backup file')
 
@@ -28,7 +28,7 @@ def setup_log():
 def tar_compress_world(server_folder, exclude_list, output_file):
     cmd_start = ['tar', '-zcvf', output_file]
     cmd_exclude = ['--exclude="{}"'.format(item) for item in exclude_list]
-    cmd_end = [server_folder]
+    cmd_end = ['-C', server_folder, '.']
 
     cmd = cmd_start + cmd_exclude + cmd_end
     logging.debug('Executing cmd: {}'.format(' '.join(cmd)))

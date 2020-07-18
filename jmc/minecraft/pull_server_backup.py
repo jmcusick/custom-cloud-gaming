@@ -16,7 +16,7 @@ def parse_args():
     parser.add_argument('--role-arn', dest='role_arn', type=str, required=True, help='AWS role arn')
     parser.add_argument('--role-session-name', dest='role_session_name', type=str, default='session', help='AWS session name')
     parser.add_argument('--server-folder', dest='server_folder', type=str, required=True, help='Minecraft server folder')
-    parser.add_argument('--exclude-list', dest='exclude_list', type=str, action='append', default=['logs','server.jar','eula.txt', '*.log', 'crash_reports'], help='Items to exclude from server backup')
+    parser.add_argument('--exclude-list', dest='exclude_list', type=str, action='append', default=['logs','server.jar','eula.txt', '*.log', 'crash-reports'], help='Items to exclude from server backup')
     parser.add_argument('--s3-bucket', dest='s3_bucket', type=str, required=True, help='AWS S3 bucket for server backup')
     parser.add_argument('--s3-object', dest='s3_object', type=str, required=True, help='Name of server backup file')
     parser.add_argument('--version-id', dest='version_id', type=str, help='Server version to pull')
