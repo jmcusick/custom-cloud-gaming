@@ -1,5 +1,6 @@
 [Unit]
 Description=Minecraft Server
+
 [Service]
 Type=simple
 Restart=on-failure
@@ -10,7 +11,9 @@ User=minecraft
 Group=minecraft
 WorkingDirectory=/home/minecraft/minecraft_server
 ExecStartPre=/home/minecraft/update_minecraft_server.py
-ExecStart=/usr/bin/java -Xms4096M -Xmx4096M -jar /home/minecraft/minecraft_server/server.jar nogui
+ExecStartPre=/usr/bin/sh -c \"sudo /usr/bin/systemctl set-environment RAM=$(free -m | awk '/Mem:/ { print $2 } /buffers\/cache/ { print $3 }')\"
+ExecStart=/usr/bin/java "-Xms${RAM}M" "-Xmx${RAM}M" -jar /home/minecraft/minecraft_server/server.jar nogui
 ExecStop=/bin/killall java
+
 [Install]
 WantedBy=multi-user.target

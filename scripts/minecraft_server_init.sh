@@ -21,7 +21,7 @@ sudo useradd -m minecraft
 git clone https://github.com/jmorgancusick/custom-cloud-gaming.git /home/ec2-user/custom-cloud-gaming
 
 # Place update_minecraft_server.py in home directory of minecraft user
-sudo cp /home/ec2-user/custom-cloud-gaming/update_minecraft_server.py \
+sudo cp /home/ec2-user/custom-cloud-gaming/scripts/update_minecraft_server.py \
      /home/minecraft/update_minecraft_server.py
 sudo chmod +x /home/minecraft/update_minecraft_server.py
 
@@ -44,7 +44,7 @@ echo 'eula=true' | sudo tee /home/minecraft/minecraft_server/eula.txt >/dev/null
 sudo chown -R minecraft:minecraft /home/minecraft
 
 # Move systemctl file
-sudo cp /home/ec2-user/custom-cloud-gaming/minecraft.service \
+sudo cp /home/ec2-user/custom-cloud-gaming/scripts/minecraft.service \
     /lib/systemd/system/minecraft.service
 
 # Start the server
