@@ -19,7 +19,7 @@ variable "key_pair" {
 variable "subdomain_dns_name" {
   description = "The route53 name for the server"
   type = string
-  default = "minecraft_test"
+  default = "minecraft"
 }
 
 variable "world_bucket" {
