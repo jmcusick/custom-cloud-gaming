@@ -31,11 +31,18 @@ sudo cp /home/ec2-user/custom-cloud-gaming/scripts/start_minecraft_server.sh \
 sudo cp /home/ec2-user/custom-cloud-gaming/scripts/stop_minecraft_server.sh \
      /home/minecraft/stop_minecraft_server.sh
 
+# Place python package in home directory
+sudo cp -r /home/ec2-user/custom-cloud-gaming/jmc \
+     /home/minecraft/jmc
+
 # Make minecraft_server directory for minecraft user
 sudo mkdir /home/minecraft/minecraft_server
 
 # Make minecraft_server_jars directory for minecraft user
 sudo mkdir /home/minecraft/minecraft_server_jars
+
+# Make backups directory for minecraft user
+sudo mkdir /home/minecraft/backups
 
 # Pull the latest jar
 sudo /home/minecraft/update_minecraft_server.py

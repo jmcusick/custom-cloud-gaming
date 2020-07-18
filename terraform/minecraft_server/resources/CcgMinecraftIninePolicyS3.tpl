@@ -5,7 +5,7 @@
             "Sid": "VisualEditor1",
             "Effect": "Allow",
             "Action": "s3:*",
-            "Resource": "arn:aws:s3:::${bucket}"
+            "Resource": "arn:aws:s3:::${bucket}/*"
         }
     ]
 }
