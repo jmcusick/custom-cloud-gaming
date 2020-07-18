@@ -11,7 +11,6 @@ User=minecraft
 Group=minecraft
 WorkingDirectory=/home/minecraft/minecraft_server
 ExecStartPre=/home/minecraft/update_minecraft_server.py
-ExecStartPre=/usr/bin/sh -c \"sudo /usr/bin/systemctl set-environment RAM=$(free -m | awk '/Mem:/ { print $2 } /buffers\/cache/ { print $3 }')\"
 ExecStart=/usr/bin/java "-Xms${RAM}M" "-Xmx${RAM}M" -jar /home/minecraft/minecraft_server/server.jar nogui
 ExecStop=/bin/killall java
 
