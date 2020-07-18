@@ -62,8 +62,11 @@ sudo chown -R minecraft:minecraft /home/minecraft
 # Pull world backup
 sudo runuser -l minecraft -c "export PYTHONPATH=/home/minecraft && /home/minecraft/jmc/minecraft/pull_server_backup.py --role-arn ${role_arn} --server-folder /home/minecraft/minecraft_server --s3-bucket ${s3_bucket} --s3-object ${s3_object}"
 
+# Cron job for uploading world backup
+sudo runuser -l minecraft -c "export PYTHONPATH=/home/minecraft && /home/minecraft/jmc/minecraft/pull_server_backup.py --role-arn ${role_arn} --server-folder /home/minecraft/minecraft_server --s3-bucket ${s3_bucket} --s3-object ${s3_object}"
+
 # Move systemctl file
-sudo cp /home/ec2-user/custom-cloud-gaming/scripts/minecraft.service \
+sudo cp /home/ec2-user/custom-cloud-gaming/resources/minecraft.service \
     /lib/systemd/system/minecraft.service
 
 # Start the server
