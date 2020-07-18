@@ -65,3 +65,15 @@ tee explained:
 * ```tee /dev/tty``` copies stdout to tty (tmux detached window)
 
 * ```systemd-cat -t minecraft``` cats stdin to journalctl, tagging with "minecraft"
+
+### s3 backup
+
+to gain permission, need to run the following on s3:
+
+~~~
+aws sts assume-role --role-arn arn:aws:iam::482283577367:role/CcgMinecraftAssumedRole --role-session-name assumed-s3
+export AWS_SECRET_ACCESS_KEY=...
+export AWS_ACCESS_KEY_ID=...
+export AWS_SESSION_TOKEN=...
+aws s3 ls s3://ccg-minecraft-worlds
+~~~
