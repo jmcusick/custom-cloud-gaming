@@ -21,7 +21,7 @@ terraform destroy
 ~~~
 
 
-### Screen
+### TMUX
 
 To connect:
 
@@ -48,7 +48,9 @@ To view logs:
 * Note: minecraft.service uses minecraft tag, and screen uses systemd-cat
 
 ~~~
+journalctl -u minecraft
 journalctl -t minecraft
+systemctl status minecraft
 ~~~
 
 
