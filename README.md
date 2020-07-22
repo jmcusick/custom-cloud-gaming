@@ -67,6 +67,13 @@ tee explained:
 
 ### s3 backup
 
+Quick way:
+
+~~~
+sudo su - minecraft
+export PYTHONPATH=/home/minecraft && /home/minecraft/jmc/minecraft/push_server_backup.py --role-arn arn:aws:iam::482283577367:role/CcgMinecraftAssumedRole --server-folder /home/minecraft/minecraft_server --s3-bucket ccg-minecraft-worlds --s3-object zach_server.tar.gz 2>&1 | systemd-cat -t minecraft
+~~~
+
 to gain permission, need to run the following on s3:
 
 ~~~
