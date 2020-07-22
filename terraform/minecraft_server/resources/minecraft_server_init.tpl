@@ -62,14 +62,25 @@ sudo chown -R minecraft:minecraft /home/minecraft
 # Pull world backup
 sudo runuser -l minecraft -c "export PYTHONPATH=/home/minecraft && /home/minecraft/jmc/minecraft/pull_server_backup.py --role-arn ${role_arn} --server-folder /home/minecraft/minecraft_server --s3-bucket ${s3_bucket} --s3-object ${s3_object} | systemd-cat -t minecraft"
 
-# Set up job for uploading world backup
+# Set up job for uploading world backup and cleanup
 sudo sh -c "crontab -u minecraft -l > /home/minecraft/tmp_cron"
 
 sudo sh -c "echo '0 21 * * * export PYTHONPATH=/home/minecraft && /home/minecraft/jmc/minecraft/push_server_backup.py --role-arn ${role_arn} --server-folder /home/minecraft/minecraft_server --s3-bucket ${s3_bucket} --s3-object ${s3_object} 2>&1 | systemd-cat -t minecraft' >> /home/minecraft/tmp_cron"
 
+sudo sh -c "echo '0 18 * * * find /home/minecraft/backups/*.tar.gz -mtime +5 -exec rm -v {} \; 2>&1 | systemd-cat -t minecraft' >> /home/minecraft/tmp_cron"
+
+sudo sh -c "echo '0 18 * * * find /home/minecraft/minecraft_server/*.log -mtime +5 -exec rm -v {} \; 2>&1 | systemd-cat -t minecraft' >> /home/minecraft/tmp_cron"
+
+sudo sh -c "echo '0 18 * * * find /home/minecraft/minecraft_server/logs/*.log.gz -mtime +5 -exec rm -v {} \; 2>&1 | systemd-cat -t minecraft' >> /home/minecraft/tmp_cron"
+
+sudo sh -c "echo '0 18 * * * find /home/minecraft/minecraft_server/crash-reports/crash*.txt -mtime +5 -exec rm -v {} \; 2>&1 | systemd-cat -t minecraft' >> /home/minecraft/tmp_cron"
+
 sudo crontab -u minecraft /home/minecraft/tmp_cron
 
 sudo rm /home/minecraft/tmp_cron
+
+# Set max journalctl size
+sudo journalctl --vacuum-size=1G
 
 # Move systemctl file
 sudo cp /home/ec2-user/custom-cloud-gaming/resources/minecraft.service \
