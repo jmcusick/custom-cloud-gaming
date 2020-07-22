@@ -48,6 +48,10 @@ resource "aws_instance" "minecraft" {
   key_name = var.key_pair
   user_data = data.template_file.minecraft_server_init_script.rendered
   iam_instance_profile = aws_iam_instance_profile.ccg_minecraft_implicit_instance_profile.name
+
+  root_block_device {
+    volume_size = 64
+  }
   
   tags = {
     Name = "minecraft"
