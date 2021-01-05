@@ -1,5 +1,7 @@
-resource "aws_s3_bucket" "ccg_minecraft_worlds" {
-  bucket = var.world_bucket
+resource "aws_s3_bucket" "ccg_worlds" {
+  bucket = each.value
+
+  for_each = var.world_buckets
   # Enable versioning so we can see the full revision history of our
   # state files
   versioning {

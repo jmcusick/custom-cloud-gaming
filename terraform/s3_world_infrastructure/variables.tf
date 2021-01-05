@@ -10,8 +10,11 @@ variable "aws_profile" {
   default = "personal"
 }
 
-variable "world_bucket" {
-  description = "The S3 bucket storing world files"
-  type = string
-  default = "ccg-minecraft-worlds"
+variable "world_buckets" {
+  description = "The S3 buckets storing world files"
+  type = set(string)
+  default = [
+    "ccg-minecraft-worlds",
+    "ccg-forest-worlds"
+  ]
 }
