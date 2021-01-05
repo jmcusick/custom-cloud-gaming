@@ -4,6 +4,12 @@ variable "region" {
   default = "us-east-2"
 }
 
+variable "aws_profile" {
+  description = "AWS profile for credentials"
+  type = string
+  default = "personal"
+}
+
 variable "world_bucket" {
   description = "The S3 bucket storing world files"
   type = string

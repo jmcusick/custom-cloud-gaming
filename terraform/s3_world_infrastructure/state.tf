@@ -4,6 +4,7 @@ terraform {
     bucket         = "jmorgancusick-terraform-state"
     key            = "global/ccg/s3_world_infrastructure/terraform.tfstate"
     region         = "us-east-2"
+    profile        = "personal"
 
     # Replace this with your DynamoDB table name!
     dynamodb_table = "jmorgancusick-terraform-state-locks"
