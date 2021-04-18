@@ -1,0 +1,18 @@
+[Unit]
+Description=Forest Server
+
+[Service]
+Type=forking
+Restart=on-failure
+RestartSec=5
+StartLimitInterval=60s
+StartLimitBurst=3
+SyslogIdentifier=forest
+User=forest
+Group=forest
+WorkingDirectory=/home/forest/forest_server
+ExecStart=/usr/bin/tmux new-session -d -s forest /home/forest/start_forest_server.sh
+ExecStop=/home/minecraft/stop_forest_server.sh
+
+[Install]
+WantedBy=multi-user.target
