@@ -11,8 +11,8 @@ sudo yum install git -y
 # Install python3 on EC2 instance
 sudo yum install python3 -y
 
-# Install java 11
-sudo yum install java-1.8.0-openjdk -y
+# Install java 17
+sudo yum install java-17-amazon-corretto-devel -y
 
 # Install tmux
 sudo yum install tmux -y
