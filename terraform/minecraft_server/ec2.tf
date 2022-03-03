@@ -1,6 +1,7 @@
 resource "aws_security_group" "allow_ssh" {
   name        = "allow_ssh"
   description = "Allow SSH inbound traffic"
+  vpc_id      = module.vpc.vpc_id
 
   ingress {
     description = "TLS from VPC"
@@ -21,6 +22,7 @@ resource "aws_security_group" "allow_ssh" {
 resource "aws_security_group" "allow_minecraft" {
   name        = "allow_minecraft"
   description = "Allow Minecraft inbound traffic"
+  vpc_id      = module.vpc.vpc_id
 
   ingress {
     description = "TLS from VPC"
@@ -41,12 +43,20 @@ resource "aws_security_group" "allow_minecraft" {
 resource "aws_instance" "minecraft" {
   ami           = data.aws_ami.amazon-linux-2.id
   instance_type = var.instance_type
+  subnet_id     = module.vpc.public_subnets[0]
   security_groups = [
-    aws_security_group.allow_ssh.name, 
-    aws_security_group.allow_minecraft.name
+    aws_security_group.allow_ssh.id,
+    aws_security_group.allow_minecraft.id,
   ]
   key_name = var.key_pair
-  user_data = data.template_file.minecraft_server_init_script.rendered
+  user_data = templatefile(
+    "${path.module}/resources/minecraft_server_init.tpl",
+    {
+      role_arn = aws_iam_role.ccg_minecraft_assumed_role.arn
+      s3_bucket = var.world_bucket
+      s3_object = var.s3_server_object
+    }
+  )
   iam_instance_profile = aws_iam_instance_profile.ccg_minecraft_implicit_instance_profile.name
 
   root_block_device {
