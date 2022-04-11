@@ -31,5 +31,5 @@ variable "world_bucket" {
 variable "s3_server_object" {
   description = "The server file .tar.gz file"
   type = string
-  default = "nether_rush_1.tar.gz"
+  default = "end_dragon_1.tar.gz"
 }
